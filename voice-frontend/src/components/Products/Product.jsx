@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {useSelector,useDispatch} from 'react-redux'
+import { addCardItems } from "../../redux/cartStore";
 
 const TopFilter  =  (props) =>{
     const {category,setCategory,categories} = props;
@@ -32,6 +34,10 @@ const TopFilter  =  (props) =>{
 
 const ProductCard = (props) =>{
     const {data} = props
+    const dispatch = useDispatch();
+    function addToCard(){
+        dispatch(addCardItems(data))
+    }
     return(
         <>
             <div className="flex flex-row gap-x-2 rounded-2xl shadow-xl h-[12rem] p-8 relative bg-gray-50">
@@ -42,9 +48,8 @@ const ProductCard = (props) =>{
                 </div>
                 <div className="w-[8rem] relative">
                     <div><img></img></div>
-                    
                 </div>
-                <button className="absolute bottom-0 right-0 rounded-l-full rounded-t-full bg-gray-400 w-[3rem] h-[3rem] shadow-lg text-gray-200 text-xl">+</button>
+                <button className="absolute bottom-0 right-0 rounded-l-full rounded-t-full bg-gray-400 w-[3rem] h-[3rem] shadow-lg text-gray-200 text-xl" onClick={addToCard}>+</button>
             </div>
         </>
     )

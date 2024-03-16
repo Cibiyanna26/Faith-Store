@@ -2,13 +2,18 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer utilities {
 
-/* @layer base {
-    @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(/fonts/Roboto.woff2) format('woff2');
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
-} */
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}

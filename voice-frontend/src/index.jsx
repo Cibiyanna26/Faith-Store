@@ -11,6 +11,8 @@ import AdminRegister from './components/user_credentials/AdminRegister';
 import Product from './components/Products/Product';
 import Home from './components/Dashboard/Home';
 import Cart from './components/Cartpage/Cart';
+import { Provider } from 'react-redux';
+import {store} from './redux/store'
 
 const appRouter = createBrowserRouter([
   {
@@ -65,7 +67,9 @@ const appRouter = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={appRouter}/>
+    <Provider store={store}>
+      <RouterProvider router={appRouter} />
+    </Provider>
   </React.StrictMode>
 );
 
