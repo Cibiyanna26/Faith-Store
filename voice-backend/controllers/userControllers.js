@@ -65,7 +65,7 @@ const loginUser = async (req, res) => {
         }
         const accessToken = generateJWT({ username , role:existingUser.role })
         const role = existingUser.role;
-        res.setHeader('Set-Cookie', [
+        await res.setHeader('Set-Cookie', [
             `token=${accessToken}; HttpOnly; Path=/; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
             `role=${role}; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`, // Add comma here
             `loggedIn=true; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
