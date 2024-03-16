@@ -8,6 +8,9 @@ import UserLogin from './components/user_credentials/UserLogin';
 import AdminLogin from './components/user_credentials/AdminLogin';
 import UserRegister from './components/user_credentials/UserRegister';
 import AdminRegister from './components/user_credentials/AdminRegister';
+import Product from './components/Products/Product';
+import Home from './components/Dashboard/Home';
+
 
 const appRouter = createBrowserRouter([
   {
@@ -19,8 +22,18 @@ const appRouter = createBrowserRouter([
     element:<Navigate to="/admin/home" replace/>
   },
   {
-    path:'/home',
+    path:'/',
     element:<App/>,
+    children:[
+      {
+        path:'/home',
+        element:<Home/>
+      },
+      {
+        path:'/product',
+        element:<Product/>
+      }
+    ]
   },
   {
     path: '/admin/home',

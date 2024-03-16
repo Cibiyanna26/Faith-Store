@@ -24,8 +24,8 @@ const Header = () =>{
                         <label>Faith</label>
                     </div>
                     <div className="flex flex-row gap-x-4">
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear" ><Link to="">Home</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="">Products</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear" ><Link to="/home">Home</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="/product">Products</Link></div>
                         <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="">About</Link></div>
                         <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="">Features</Link></div>
                     </div>
