@@ -25,6 +25,9 @@ module.exports = {
       boxShadow: {
         bottomS: "0 8px 6px -6px black",
       },
+      backgroundImage: {
+        'home-page': "url('/src/assets/jpg/home-page-image.jpg')",
+      }
     },
   },
   plugins: [],

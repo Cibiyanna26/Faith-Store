@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import cartImage from '../assets/png/add-to-basket.png';
 const Header = () =>{
     return(
         <>
@@ -24,14 +24,17 @@ const Header = () =>{
                         <label>Faith</label>
                     </div>
                     <div className="flex flex-row gap-x-4">
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear" ><Link to="/home">Home</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="/product">Products</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="">About</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-linear"><Link to="">Features</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/home">Home</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/product">Products</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="">About</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="">Features</Link></div>
                     </div>
-                    <div className="search">
+                    <div className="search flex flex-row gap-x-4 items-center">
                         <div className="flex">
                             <input type="text" className="w-[15rem] p-3 rounded-3xl bg-transparent border-2 border-yellow-300 shadow-md shadow-orange-500 outline-none placeholder:text-white" placeholder="Search Products"></input>
+                        </div>
+                        <div>
+                            <Link to={'/cart'}><img src={cartImage} className="w-[2.5rem] h-[2.5rem]"></img></Link>
                         </div>
                     </div>
                 </nav>

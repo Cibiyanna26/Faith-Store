@@ -10,7 +10,7 @@ import UserRegister from './components/user_credentials/UserRegister';
 import AdminRegister from './components/user_credentials/AdminRegister';
 import Product from './components/Products/Product';
 import Home from './components/Dashboard/Home';
-
+import Cart from './components/Cartpage/Cart';
 
 const appRouter = createBrowserRouter([
   {
@@ -32,6 +32,10 @@ const appRouter = createBrowserRouter([
       {
         path:'/product',
         element:<Product/>
+      },
+      {
+        path:'/cart',
+        element:<Cart/>
       }
     ]
   },
