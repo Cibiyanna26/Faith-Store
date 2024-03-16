@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter,RouterProvider} from 'react-router-dom'
+import {createBrowserRouter,RouterProvider,Navigate} from 'react-router-dom'
 import UserLogin from './components/user_credentials/UserLogin';
 import AdminLogin from './components/user_credentials/AdminLogin';
 import UserRegister from './components/user_credentials/UserRegister';
@@ -11,8 +11,16 @@ import AdminRegister from './components/user_credentials/AdminRegister';
 
 const appRouter = createBrowserRouter([
   {
+    path:'/',
+    element:<Navigate to="/home" replace/>
+  },
+  {
+    path:'/admin',
+    element:<Navigate to="/admin/home" replace/>
+  },
+  {
     path:'/home',
-    element:<App/>
+    element:<App/>,
   },
   {
     path: '/admin/home',
