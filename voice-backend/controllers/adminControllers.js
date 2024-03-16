@@ -35,7 +35,6 @@ const registerAdmin = async (req, res) => {
         return res.status(404).json({ error: true, message: 'network issue' })
 
     }
-
 }
 
 const loginAdmin = async (req, res) => {

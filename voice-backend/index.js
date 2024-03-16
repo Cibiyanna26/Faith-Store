@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const userRouter = require('./routes/userRoutes')
 // const postRouter = require('./routes/postRoutes')
+const adminProductRouter = require('./routes/adminproductRoutes')
 // const profileRouter = require('./routes/profileRoutes')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
@@ -24,6 +25,8 @@ app.use(bodyParser.json())
 app.use(compression())
 
 app.use('/api/users',userRouter)
+app.use('/api/admin/product',adminProductRouter)
+
 
 app.listen(5000,()=>{
     console.log('listening')
