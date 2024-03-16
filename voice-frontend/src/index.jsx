@@ -6,27 +6,34 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter,RouterProvider} from 'react-router-dom'
 import UserLogin from './components/user_credentials/UserLogin';
 import AdminLogin from './components/user_credentials/AdminLogin';
-
+import UserRegister from './components/user_credentials/UserRegister';
+import AdminRegister from './components/user_credentials/AdminRegister';
 
 const appRouter = createBrowserRouter([
   {
     path:'/home',
     element:<App/>
   },
-  // {
-  //   path:'/login',
-  //   // element:<UserLogin/>,
-  //   children:[
-  //     {
-  //       path: '/',
-  //       element: <UserLogin />,
-  //     },
-  //     {
-  //       path:'/admin',
-  //       element:<AdminLogin/>>
-  //     },
-  //   ]
-  // }
+  {
+    path: '/admin/home',
+    element: <App />
+  },
+  {
+    path: '/login',
+    element: <UserLogin />,
+  },
+  {
+    path:'/admin/login',
+    element:<AdminLogin/>
+  },
+  {
+    path: '/register',
+    element: <UserRegister />,
+  },
+  {
+    path: '/admin/register',
+    element: <AdminRegister />
+  },
 ])
 
 
