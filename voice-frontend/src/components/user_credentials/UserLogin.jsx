@@ -27,7 +27,9 @@ const UserLogin = () => {
                 },
                 {
                     withCredentials: true,
-                }
+                    credentials: 'include'
+                },
+                
             )
             setLoading(0)
             toast.success("Succesfully LoggedIn !");
