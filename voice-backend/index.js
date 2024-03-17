@@ -16,7 +16,7 @@ const connection = require('./db')
 connection()
 app.use(cookieParser())
 const corsOptions = {
-    origin: ['http://localhost:3000','https://webathon-backend.vercel.app'],
+    origin: ['http://localhost:3000','https://webathon-xi.vercel.app/'],
     credentials: true,
     optionsSuccessStatus: 200,
 }
@@ -30,6 +30,6 @@ app.use('/api/purchase',userPurchaseRoutes)
 app.use('/api/admin/product',adminProductRouter)
 
 
-app.listen(5000,()=>{
+app.listen(5000 || 'https://webathon-backend.vercel.app/',()=>{
     console.log('listening')
 })
