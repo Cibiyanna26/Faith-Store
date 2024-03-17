@@ -65,11 +65,7 @@ const loginUser = async (req, res) => {
         }
         const accessToken = generateJWT({ username , role:existingUser.role })
         const role = existingUser.role;
-        await res.setHeader('Set-Cookie', [
-            `token=${accessToken}; HttpOnly; Path=/; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
-            `role=${role}; HttpOnly; Path=/;  Max-Age=${process.env.COOKIE_EXPIRE_TIME}`, // Add comma here
-        ]);
-        return res.status(200).json({ error: false, message: 'Successfully Login' })
+        return res.status(200).json({ error: false, message: 'Successfully Login' , accessToken:accessToken })
     }
     catch (err) {
         return res.status(409).json({ error: true, message: err.message });

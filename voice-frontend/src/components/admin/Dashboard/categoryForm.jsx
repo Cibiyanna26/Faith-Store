@@ -1,12 +1,19 @@
 import { useState } from "react";
 import axios from 'axios'
+import { getCookie } from "../../../utils/service";
 const CategoryForm = () => {
     const [categoryName,setCategoryName] = useState('')
+    const token = getCookie('token')
     async function handleAddCategory(e) {
         e.preventDefault()
         try {
             const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/product/category`, {categoryName},{
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
         } catch (err) { 
             console.log(err)

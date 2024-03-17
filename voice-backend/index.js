@@ -15,6 +15,7 @@ const connection = require('./db')
 
 connection()
 app.use(cookieParser())
+
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin);
@@ -22,6 +23,8 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
 });
+
+
 const corsOptions = {
     origin: ['http://localhost:3000','https://webathon-xi.vercel.app/'],
     credentials: true,

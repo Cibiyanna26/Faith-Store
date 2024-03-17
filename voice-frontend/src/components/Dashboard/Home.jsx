@@ -3,6 +3,7 @@ import vegeImage from '../../assets/jpg/home-page-image.jpg'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { getCookie } from '../../utils/service';
 const HomeTop = () =>{
     return(
         <>
@@ -77,10 +78,16 @@ const Home = () => {
     },[])
 
     async function checkUser(){
+        const token = getCookie('token')
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
                 withCredentials: true,
-                credentials: 'include'
+                credentials: 'include',
+                headers:{
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
         } catch (err) {
             navigate('/unauth')

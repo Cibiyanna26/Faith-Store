@@ -1,19 +1,26 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { getCookie } from "../../../utils/service"
 const SubCategoryForms = (props) => {
     const {categories} = props
     const [category,setCategory] = useState(null)
     const [subCategory,setSubCategory] = useState(null)
-
+    const token = getCookie('token')
     async function handleSubCategory(){
         if(category === '' || subCategory === ''){
             alert('Enter all field')
             return;
         }
+    
         try {
             const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/product/subcategory`, { categoryName: category,subCategory }, {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
             setCategory('')
             setSubCategory('')

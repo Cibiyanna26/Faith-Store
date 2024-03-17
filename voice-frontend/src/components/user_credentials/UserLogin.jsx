@@ -9,6 +9,8 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { removeAllCartItems } from '../../redux/cartStore';
+import {setCookie} from '../../utils/service.js'
+
 
 const UserLogin = () => {
 
@@ -31,7 +33,7 @@ const UserLogin = () => {
                 }
             )
             setLoading(0)
-            toast.success("Succesfully LoggedIn !");
+            setCookie('token',res.data.accessToken,160)
             dispatch(removeAllCartItems())
             navigate('/home')
         } catch (err) {

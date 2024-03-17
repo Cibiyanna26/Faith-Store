@@ -4,6 +4,7 @@ import axios from "axios"
 import CategoryForm from "./categoryForm"
 import SubCategoryForms from "./SubCategoryForm"
 import ProductForm from "./productForm"
+import { getCookie } from "../../../utils/service"
 
 
 
@@ -40,11 +41,16 @@ const ProductCard = (props) => {
     useEffect(() => {
         checkUser()
     }, [])
-
+    const token = getCookie('token')
     async function checkUser() {
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/admin`, {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
         } catch (err) {
             navigate('/unauth')
@@ -80,10 +86,16 @@ const AdminDashboard = () =>{
         fetchSubCategory()
         fetchProducts()
     }, [])
+    const token = getCookie('token')
     async function checkUser() {
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/admin`, {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
         } catch (err) {
             navigate('/unauth')
@@ -91,7 +103,13 @@ const AdminDashboard = () =>{
     }
     async function fetchCategory() {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/category`)
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/category`,{
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            })
             setCategories(res.data.data)
         } catch (err) {
             console.log(err)
@@ -99,7 +117,13 @@ const AdminDashboard = () =>{
     }
     async function fetchSubCategory() {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/subcategory`)
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/subcategory`,{
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            })
             setSubCategories(res.data.data)
         } catch (err) {
             console.log(err)
@@ -107,7 +131,13 @@ const AdminDashboard = () =>{
     }
     async function fetchProducts() {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/items`)
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/items`,{
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            })
             setAllProducts(res.data.data)
         } catch (err) {
             console.log(err)

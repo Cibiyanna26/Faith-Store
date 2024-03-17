@@ -3,7 +3,7 @@ import dullImage from '../../assets/jpg/login-dull.jpg'
 import goodImage from '../../assets/jpg/login-bright.jpg'
 import goodImageno from '../../assets/png/login-bright-nobg.png'
 import dullImageno from '../../assets/png/login-dull-nodb.png'
-
+import { setCookie } from '../../utils/service.js' 
 import { useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
@@ -29,6 +29,7 @@ const AdminLogin = () => {
                 }
             )
             setLoading(0)
+            setCookie('token', res.data.accessToken, 160)
             toast.success("Succesfully LoggedIn !");
             navigate('/admin/dashboard')
         } catch (err) {

@@ -3,7 +3,7 @@ import { useSelector , useDispatch} from "react-redux";
 import { deleteCardItems, removeAllCartItems } from "../../redux/cartStore";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-
+import { getCookie } from "../../utils/service";
 const CartCard = (props) =>{
     const {cart} = props;
     const dispatch = useDispatch()
@@ -33,11 +33,17 @@ const Cart = () =>{
     useEffect(() => {
         checkUser()
     }, [])
-
+    const token = getCookie('token')
     async function checkUser() {
+       
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
         } catch (err) {
             navigate('/unauth')
@@ -60,6 +66,11 @@ const Cart = () =>{
         try{
             const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/purchase`, { total: price, items: cartItems },{
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
             dispatch(removeAllCartItems())
             navigate('/purchase-success')
