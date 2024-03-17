@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector , useDispatch} from "react-redux";
-import { deleteCardItems } from "../../redux/cartStore";
+import { deleteCardItems, removeAllCartItems } from "../../redux/cartStore";
+import { useNavigate } from "react-router-dom";
 
 
 const CartCard = (props) =>{
@@ -10,12 +11,14 @@ const CartCard = (props) =>{
         dispatch(deleteCardItems({item:cart.item,categoryName:cart.categoryName,subCategory:cart.subCategory}))
     }
 
+    
+
     return(
         <>
             <div className="w-[40rem] relative flex flex-col gap-y-4 rounded-xl bg-gray-50 p-4 shadow-md hover:shadow-none duration-200 ease-in border-2 border-zinc-200">
-                <h1>{cart.item}</h1>
-                <p>{cart.description}</p>   
-                <label>price : <span className="text-blue-500">{cart.price}</span></label>
+                <h1 className="text-xl font-semibold font-mono">{cart.item}</h1>
+                <p className="text-gray-500 font-mono">{cart.description}</p>   
+                <label className="font-medium font-mono">price : <span className="text-blue-500">{cart.price}</span></label>
                 <button className="rounded-full w-[2.5rem] h-[2.5rem] text-white bg-red-500 absolute top-3 right-3" onClick={()=>handleCartRemove()}>x</button>
             </div>
         </>
@@ -27,7 +30,8 @@ const Cart = () =>{
     const cartStore = useSelector((store)=>store.cartStore)
     const {cartItems} = cartStore;
     const [price,setPrice] = useState(0)
-
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     useEffect(()=>{
         calciPrice()
     },[cartItems])
@@ -39,6 +43,12 @@ const Cart = () =>{
         }
         setPrice(total)
     }
+
+    function successMessage(){
+        dispatch(removeAllCartItems())
+        navigate('/purchase-success')
+    }
+
     return(
         <>
             <section className="">
@@ -86,8 +96,8 @@ const Cart = () =>{
                                             <label for="" className="absolute text-sm font-medium left-4 -top-2.5 z-30 bg-white px-2">CVV</label>
                                             <input type="text" className="w-full  text-zinc-600  outline-none text-lg " placeholder="Enter cvv"></input>
                                         </div>
-                                        <div className="col-span-2 w-full bg-[#FC8A06] text-white p-4 rounded-xl text-center">
-                                            <button className="">Pay Now</button>
+                                        <div className="col-span-2">
+                                            <button className="w-full bg-[#FC8A06] text-white text-center p-4  rounded-xl" onClick={()=>successMessage()}>Pay Now</button>
                                         </div>
                                     </form>
                                 </div>

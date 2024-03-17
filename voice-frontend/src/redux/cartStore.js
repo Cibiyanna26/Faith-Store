@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist';
 
 const initialState = {
     cartItems:[],
@@ -13,14 +14,17 @@ export const cartSlice = createSlice({
            state.cartItems.push(action.payload)
         },
         deleteCardItems:(state,action)=>{
-            // const newArray = state.cartItems.filter((cart)=>{
-                
-            // })
-            // const newArray = state.cartItems.filter((cart)=>cart.item !== action.payload.item)
-            // return [...newArray]
-            // console.log(newArray)
+            const {item,subCategory,categoryName} = action.payload;
+            state.cartItems = state.cartItems.filter((i)=>{
+                return i.item !== item || i.subCategory !== subCategory ||  i.categoryName !== categoryName
+            })
+        },
+        removeAllCartItems:(state,action)=>{
+            state.cartItems = []
         }
     }
 })
 
-export const { addCardItems, deleteCardItems } = cartSlice.actions;
+export const { addCardItems, deleteCardItems, removeAllCartItems } = cartSlice.actions;
+
+export default cartSlice.reducer;

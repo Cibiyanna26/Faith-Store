@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 import cartImage from '../assets/png/add-to-basket.png';
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 const Header = () =>{
+    const cartStore = useSelector((store)=>store.cartStore)
+    const {cartItems} = cartStore;
+    const [noofItems,setNoOfItems] = useState(0)
+    useEffect(()=>{
+        setNoOfItems(cartItems.length)
+    },[cartItems])
     return(
         <>
             <section className="header">
@@ -26,15 +35,18 @@ const Header = () =>{
                     <div className="flex flex-row gap-x-4">
                         <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/home">Home</Link></div>
                         <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/product">Products</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="">About</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="">Features</Link></div>
+                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/purchase">Purchase</Link></div>
                     </div>
-                    <div className="search flex flex-row gap-x-4 items-center">
+                    <div className="search flex flex-row gap-x-4 items-center relative">
                         <div className="flex">
                             <input type="text" className="w-[15rem] p-3 rounded-3xl bg-transparent border-2 border-yellow-300 shadow-md shadow-orange-500 outline-none placeholder:text-white" placeholder="Search Products"></input>
                         </div>
-                        <div>
+                        <div className="relative">
                             <Link to={'/cart'}><img src={cartImage} className="w-[2.5rem] h-[2.5rem]"></img></Link>
+                            
+                        </div>
+                        <div className="w-[1.5rem] h-[1.5rem] rounded-xl bg-white shadow-md  text-black absolute top-1.5 right-2  text-center">
+                            <lable>{noofItems}</lable>
                         </div>
                     </div>
                 </nav>
