@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import vegeImage from '../../assets/jpg/home-page-image.jpg'
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const HomeTop = () =>{
     return(
         <>
@@ -68,6 +70,21 @@ const HomeLove = () =>{
 
 
 const Home = () => {
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        checkUser()
+    },[])
+
+    async function checkUser(){
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
+                withCredentials: true,
+            })
+        } catch (err) {
+            navigate('/unauth')
+        }
+    }
     return (
         <>  
             <HomeTop/>

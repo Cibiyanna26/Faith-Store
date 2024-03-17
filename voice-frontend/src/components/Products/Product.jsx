@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {useSelector,useDispatch} from 'react-redux'
 import { addCardItems } from "../../redux/cartStore";
+import { useNavigate } from 'react-router-dom';
 
 const TopFilter  =  (props) =>{
     const {category,setCategory,categories} = props;
@@ -35,6 +36,21 @@ const TopFilter  =  (props) =>{
 const ProductCard = (props) =>{
     const {data} = props
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        checkUser()
+    }, [])
+
+    async function checkUser() {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
+                withCredentials: true,
+            })
+        } catch (err) {
+            navigate('/unauth')
+        }
+    }
     function addToCard(){
         dispatch(addCardItems(data))
     }

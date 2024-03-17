@@ -1,5 +1,5 @@
 import successPurchaseImage from '../assets/jpg/success messaage.jpg'
-
+import { Link } from 'react-router-dom';
 const SuccessPurchase = () =>{
     return(
         <>
@@ -11,7 +11,7 @@ const SuccessPurchase = () =>{
                         </div>
                     </div>
                     <h1 className='text-2xl font-semibold'>Successful  ✅ !</h1>
-                    <label className='text-xl text-gray-500 font-medium underline'>Your order placed Successfully</label>
+                    <Link to="/purchase" className='text-xl text-gray-500 font-medium underline'>Your order placed Successfully</Link>
                 </div>
             </div>
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector , useDispatch} from "react-redux";
 import { deleteCardItems, removeAllCartItems } from "../../redux/cartStore";
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios'
 
 const CartCard = (props) =>{
     const {cart} = props;
@@ -10,9 +10,7 @@ const CartCard = (props) =>{
     const handleCartRemove = () =>{
         dispatch(deleteCardItems({item:cart.item,categoryName:cart.categoryName,subCategory:cart.subCategory}))
     }
-
     
-
     return(
         <>
             <div className="w-[40rem] relative flex flex-col gap-y-4 rounded-xl bg-gray-50 p-4 shadow-md hover:shadow-none duration-200 ease-in border-2 border-zinc-200">
@@ -32,6 +30,19 @@ const Cart = () =>{
     const [price,setPrice] = useState(0)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    useEffect(() => {
+        checkUser()
+    }, [])
+
+    async function checkUser() {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
+                withCredentials: true,
+            })
+        } catch (err) {
+            navigate('/unauth')
+        }
+    }
     useEffect(()=>{
         calciPrice()
     },[cartItems])
@@ -44,10 +55,20 @@ const Cart = () =>{
         setPrice(total)
     }
 
-    function successMessage(){
-        dispatch(removeAllCartItems())
-        navigate('/purchase-success')
+    async function successMessage(e){
+        e.preventDefault()
+        try{
+            const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/purchase`, { total: price, items: cartItems },{
+                withCredentials: true,
+            })
+            dispatch(removeAllCartItems())
+            navigate('/purchase-success')
+        }catch(err){
+            console.log(err)
+        }
+     
     }
+
 
     return(
         <>
@@ -97,7 +118,7 @@ const Cart = () =>{
                                             <input type="text" className="w-full  text-zinc-600  outline-none text-lg " placeholder="Enter cvv"></input>
                                         </div>
                                         <div className="col-span-2">
-                                            <button className="w-full bg-[#FC8A06] text-white text-center p-4  rounded-xl" onClick={()=>successMessage()}>Pay Now</button>
+                                            <button className="w-full bg-[#FC8A06] text-white text-center p-4  rounded-xl" onClick={(e)=>successMessage(e)}>Pay</button>
                                         </div>
                                     </form>
                                 </div>

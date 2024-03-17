@@ -72,8 +72,12 @@ const loginAdmin = async (req, res) => {
     }
 }
 
+const authAdmin =(req,res) =>{
+    return res.status(200).json({ error: false, message: 'admin authenticated' })
+}
+
 module.exports = {
-    registerAdmin , loginAdmin
+    registerAdmin, loginAdmin, authAdmin
 }
 
 
