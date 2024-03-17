@@ -11,7 +11,11 @@ import AdminRegister from './components/user_credentials/AdminRegister';
 import Product from './components/Products/Product';
 import Home from './components/Dashboard/Home';
 import Cart from './components/Cartpage/Cart';
-
+import { Provider } from 'react-redux';
+import {store , persistor} from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react';
+import SuccessPurchase from './components/SuccessPurchase';
+import Purchase from './components/PurchasePage/Purchase';
 const appRouter = createBrowserRouter([
   {
     path:'/',
@@ -36,6 +40,10 @@ const appRouter = createBrowserRouter([
       {
         path:'/cart',
         element:<Cart/>
+      },
+      {
+        path:'/purchase',
+        element:<Purchase/>
       }
     ]
   },
@@ -59,13 +67,21 @@ const appRouter = createBrowserRouter([
     path: '/admin/register',
     element: <AdminRegister />
   },
+  {
+    path:'/purchase-success',
+    element:<SuccessPurchase/>
+  }
 ])
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={appRouter}/>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={appRouter} />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 

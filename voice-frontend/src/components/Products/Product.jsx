@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {useSelector,useDispatch} from 'react-redux'
+import { addCardItems } from "../../redux/cartStore";
 
 const TopFilter  =  (props) =>{
     const {category,setCategory,categories} = props;
@@ -32,19 +34,22 @@ const TopFilter  =  (props) =>{
 
 const ProductCard = (props) =>{
     const {data} = props
+    const dispatch = useDispatch();
+    function addToCard(){
+        dispatch(addCardItems(data))
+    }
     return(
         <>
             <div className="flex flex-row gap-x-2 rounded-2xl shadow-xl h-[12rem] p-8 relative bg-gray-50">
                 <div className="flex flex-col gap-y-4 flex-1">
                     <h1 className="text-lg font-bold">{data.item}</h1>
-                    <p className="text-md font-medium text-gray-500">{data.description}</p>
-                    <label className="text-gray-700">Price : <span className="text-blue-600">{data.price}</span></label>
+                    <p className="text-sm font-medium text-gray-500">{data.description}</p>
+                    <label className="text-gray-700 text-md font-mono">Price : <span className="text-blue-600">${data.price}</span></label>
                 </div>
-                <div className="w-[8rem] relative">
+                <div className="w-[7rem] relative">
                     <div><img></img></div>
-                    
                 </div>
-                <button className="absolute bottom-0 right-0 rounded-l-full rounded-t-full bg-gray-400 w-[3rem] h-[3rem] shadow-lg text-gray-200 text-xl">+</button>
+                <button className="absolute bottom-0 right-0 font-mono rounded-l-full rounded-t-full bg-gray-400 w-[3rem] h-[3rem] shadow-lg text-gray-200 text-xl" onClick={addToCard}>+</button>
             </div>
         </>
     )
