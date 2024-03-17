@@ -17,15 +17,19 @@ import { PersistGate } from 'redux-persist/integration/react';
 import SuccessPurchase from './components/SuccessPurchase';
 import Purchase from './components/PurchasePage/Purchase';
 import NotAuth from './components/notAuth';
-
+import AdminApp from './AdminApp';
+import AdminDashboard from './components/admin/Dashboard/adminDashboard';
+import NotFound from './components/notFound';
 const appRouter = createBrowserRouter([
   {
     path:'/',
-    element:<Navigate to="/home" replace/>
+    element:<Navigate to="/home" replace/>,
+    errorElement: <NotFound />
   },
   {
     path:'/admin',
-    element:<Navigate to="/admin/home" replace/>
+    element:<Navigate to="/admin/dashboard" replace/>,
+    errorElement: <NotFound />
   },
   {
     path:'/',
@@ -47,36 +51,49 @@ const appRouter = createBrowserRouter([
         path:'/purchase',
         element:<Purchase/>
       }
-    ]
+    ],
+    errorElement: <NotFound/>
   },
   {
-    path: '/admin/home',
-    element: <App />
+    path: '/',
+    element: <AdminApp/>,
+    children:[
+      {
+        path: '/admin/dashboard',
+        element: <AdminDashboard />
+      }
+    ],
+    errorElement: <NotFound />
   },
   {
     path: '/login',
     element: <UserLogin />,
+    errorElement: <NotFound />
   },
   {
     path:'/admin/login',
-    element:<AdminLogin/>
+    element:<AdminLogin/>,
+    errorElement: <NotFound />
   },
   {
     path: '/register',
     element: <UserRegister />,
+    errorElement: <NotFound />
   },
   {
     path: '/admin/register',
-    element: <AdminRegister />
+    element: <AdminRegister />,
+    errorElement: <NotFound />
   },
   {
     path:'/purchase-success',
-    element:<SuccessPurchase/>
+    element:<SuccessPurchase/>,
+    errorElement: <NotFound />
   },
   {
     path: '/unauth',
     element: <NotAuth />
-  }
+  },
 ])
 
 

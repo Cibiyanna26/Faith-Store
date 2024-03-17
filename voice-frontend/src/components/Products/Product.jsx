@@ -33,7 +33,7 @@ const TopFilter  =  (props) =>{
     )
 }
 
-const ProductCard = (props) =>{
+export const ProductCard = (props) =>{
     const {data} = props
     const dispatch = useDispatch();
     const navigate = useNavigate()

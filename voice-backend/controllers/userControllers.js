@@ -67,8 +67,7 @@ const loginUser = async (req, res) => {
         const role = existingUser.role;
         await res.setHeader('Set-Cookie', [
             `token=${accessToken}; HttpOnly; Path=/; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
-            `role=${role}; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`, // Add comma here
-            `loggedIn=true; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
+            `role=${role}; HttpOnly; Path=/;  Max-Age=${process.env.COOKIE_EXPIRE_TIME}`, // Add comma here
         ]);
         return res.status(200).json({ error: false, message: 'Successfully Login' })
     }
@@ -78,18 +77,18 @@ const loginUser = async (req, res) => {
 
 }
 
-const logout = (req, res) => {
+const logout = async (req, res) => {
     req.cookies.loggedIn = false;
-    res.cookie('token', '', {
+     res.cookie('token', '', {
         httpOnly: true, // Prevent client-side JavaScript access
         expires: new Date(Date.now() - 1000), // Expire immediately
     });
-    res.cookie('role', '', {
+     res.cookie('role', '', {
         httpOnly: true, // Prevent client-side JavaScript access
         expires: new Date(Date.now() - 1000), // Expire immediately
     });
 
-    res.cookie('loggedIn', 'false', { // Set loggedIn to false
+     res.cookie('loggedIn', 'false', { // Set loggedIn to false
         httpOnly: true, // Prevent client-side JavaScript access
         expires: new Date(Date.now() - 1000), // Expire immediately
     });
