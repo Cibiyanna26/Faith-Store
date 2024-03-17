@@ -80,6 +80,7 @@ const Home = () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
                 withCredentials: true,
+                credentials: 'include'
             })
         } catch (err) {
             navigate('/unauth')
