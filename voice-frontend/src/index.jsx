@@ -16,6 +16,8 @@ import {store , persistor} from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react';
 import SuccessPurchase from './components/SuccessPurchase';
 import Purchase from './components/PurchasePage/Purchase';
+import NotAuth from './components/notAuth';
+
 const appRouter = createBrowserRouter([
   {
     path:'/',
@@ -70,6 +72,10 @@ const appRouter = createBrowserRouter([
   {
     path:'/purchase-success',
     element:<SuccessPurchase/>
+  },
+  {
+    path: '/unauth',
+    element: <NotAuth />
   }
 ])
 

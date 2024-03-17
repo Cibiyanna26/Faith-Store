@@ -3,18 +3,19 @@ import dullImage from '../../assets/jpg/login-dull.jpg'
 import goodImage from '../../assets/jpg/login-bright.jpg'
 import goodImageno from '../../assets/png/login-bright-nobg.png'
 import dullImageno from '../../assets/png/login-dull-nodb.png'
-
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { removeAllCartItems } from '../../redux/cartStore';
 
 const UserLogin = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(0)
-
+    const dispatch = useDispatch()
     const Login = async (e) => {
         e.preventDefault()
         try {
@@ -30,6 +31,7 @@ const UserLogin = () => {
             )
             setLoading(0)
             toast.success("Succesfully LoggedIn !");
+            dispatch(removeAllCartItems())
             navigate('/home')
         } catch (err) {
             console.log(err)

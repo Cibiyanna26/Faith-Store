@@ -27,6 +27,7 @@ module.exports = {
       },
       backgroundImage: {
         'home-page': "url('/src/assets/jpg/home-page-image.jpg')",
+        'purchase-page':"url('/src/assets/jpg/happy-man.jpg')"
       }
     },
   },

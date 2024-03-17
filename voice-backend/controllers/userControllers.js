@@ -96,7 +96,11 @@ const logout = (req, res) => {
     return res.status(200).json({ message: 'You are logged out!' });
 }
 
+const authUser = (req,res) =>{
+    return res.status(200).json({error:false, message: 'user authenticated'})
+}
+
 
 module.exports = {
-    registerUser, loginUser, logout
+    registerUser, loginUser, logout, authUser
 }
