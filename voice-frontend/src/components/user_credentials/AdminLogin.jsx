@@ -30,7 +30,7 @@ const AdminLogin = () => {
             )
             setLoading(0)
             toast.success("Succesfully LoggedIn !");
-            navigate('/admin/home')
+            navigate('/admin/dashboard')
         } catch (err) {
             console.log(err)
             setLoading(0)

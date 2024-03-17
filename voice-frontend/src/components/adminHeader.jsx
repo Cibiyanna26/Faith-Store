@@ -1,27 +1,29 @@
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import cartImage from '../assets/png/add-to-basket.png';
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const Header = () =>{
-    const cartStore = useSelector((store)=>store.cartStore)
-    const {cartItems} = cartStore;
-    const [noofItems,setNoOfItems] = useState(0)
+const AdminHeader = () => {
+    const cartStore = useSelector((store) => store.cartStore)
+    const { cartItems } = cartStore;
+    const [noofItems, setNoOfItems] = useState(0)
     const navigate = useNavigate()
-    useEffect(()=>{
+    useEffect(() => {
         setNoOfItems(cartItems.length)
-    },[cartItems])
-    async function handleLogout() {
+    }, [cartItems])
+
+
+    async function handleLogout (){
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/logout`, {
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/admin/logout`, {
                 withCredentials: true,
             })
-            navigate('/login')
+            navigate('/admin/login')
         } catch (err) {
             alert('error occured in logout')
         }
     }
-    return(
+    return (
         <>
             <section className="header">
                 <nav className="flex flex-row justify-between p-4 bg-[#FC8A06] text-white">
@@ -41,26 +43,11 @@ const Header = () =>{
                                 </clipPath>
                             </defs>
                         </svg>
-                        <Link to={'/home'}>Faith</Link>
+                        <Link to={'/admin/dashboard'}>Faith</Link>
                     </div>
                     <div className="flex flex-row gap-x-4">
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/home">Home</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/product">Products</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><Link to="/purchase">Purchase</Link></div>
-                        <div className="p-4 hover:bg-white rounded-3xl hover:text-black duration-200 ease-in text-md font-semibold"><button onClick={() => handleLogout()}>Logout</button></div>
-
-                    </div>
-                    <div className="search flex flex-row gap-x-4 items-center relative">
-                        <div className="flex">
-                            <input type="text" className="w-[15rem] p-3 rounded-3xl bg-transparent border-2 border-yellow-300 shadow-md shadow-orange-500 outline-none placeholder:text-white" placeholder="Search Products"></input>
-                        </div>
-                        <div className="relative">
-                            <Link to={'/cart'}><img src={cartImage} className="w-[2.5rem] h-[2.5rem]"></img></Link>
-                            
-                        </div>
-                        <div className="w-[1.5rem] h-[1.5rem] rounded-xl bg-white shadow-md  text-black absolute top-1.5 right-2  text-center">
-                            <lable>{noofItems}</lable>
-                        </div>
+                        <div className="p-4 hover:text-yellow-100 rounded-3xl duration-200 ease-in text-md font-semibold"><Link to="/admin/dashboard">Admin Dashboard</Link></div>
+                        <div className="p-4 hover:text-yellow-100 rounded-3xl duration-200 ease-in text-md font-semibold"><button onClick={()=>handleLogout()}>Logout</button></div>
                     </div>
                 </nav>
             </section>
@@ -68,4 +55,4 @@ const Header = () =>{
     )
 }
 
-export default Header;
+export default AdminHeader;
