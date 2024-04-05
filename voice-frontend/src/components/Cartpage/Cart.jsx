@@ -4,10 +4,15 @@ import { deleteCardItems, removeAllCartItems } from "../../redux/cartStore";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { getCookie } from "../../utils/service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const CartCard = (props) =>{
     const {cart} = props;
     const dispatch = useDispatch()
     const handleCartRemove = () =>{
+        toast.success("Items removed from the cart")
         dispatch(deleteCardItems({item:cart.item,categoryName:cart.categoryName,subCategory:cart.subCategory}))
     }
     
@@ -72,10 +77,11 @@ const Cart = () =>{
                     },
                 }
             })
-            dispatch(removeAllCartItems())
-            navigate('/purchase-success')
+            toast.success('Successfully Purchased');
+            dispatch(removeAllCartItems());
+            navigate('/purchase-success');  
         }catch(err){
-            console.log(err)
+            toast.error(err.response.data.message);
         }
      
     }
@@ -84,6 +90,7 @@ const Cart = () =>{
     return(
         <>
             <section className="">
+                <ToastContainer />
                 <div className="w-[80%] mx-auto p-4">
                     <h1 className="text-2xl font-bold text-center">Shopping Cart</h1>
                 </div>

@@ -29,11 +29,11 @@ const AdminLogin = () => {
                 }
             )
             setLoading(0)
+            toast.success("Admin Succesfully LoggedIn !");
             setCookie('token', res.data.accessToken, 160)
-            toast.success("Succesfully LoggedIn !");
             navigate('/admin/dashboard')
         } catch (err) {
-            console.log(err)
+            toast.error(err.response.data.message)
             setLoading(0)
         }
     }
