@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getCookie } from "../../../utils/service";
 
 const ProductForm = (props) => {
     const { categories, subCategories } = props;
@@ -22,7 +23,7 @@ const ProductForm = (props) => {
         }
     },[category])
 
-
+    const token = getCookie('token')
     async function handleNewItem(e){
         e.preventDefault()
         if (!category || !subCategory || !item || !description || !price || !quantity){
@@ -39,6 +40,11 @@ const ProductForm = (props) => {
             }, 
             {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
             setCategory('')
             setSubCategory('')

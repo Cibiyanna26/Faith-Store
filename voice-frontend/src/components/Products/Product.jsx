@@ -3,6 +3,9 @@ import axios from "axios";
 import {useSelector,useDispatch} from 'react-redux'
 import { addCardItems } from "../../redux/cartStore";
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from "../../utils/service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TopFilter  =  (props) =>{
     const {category,setCategory,categories} = props;
@@ -43,15 +46,22 @@ export const ProductCard = (props) =>{
     }, [])
 
     async function checkUser() {
+        const token =getCookie('token')
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/user`, {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
         } catch (err) {
             navigate('/unauth')
         }
     }
     function addToCard(){
+        toast.success('Item Added to Cart')
         dispatch(addCardItems(data))
     }
     return(
@@ -197,8 +207,15 @@ const Product = () =>{
         }
     }
     async function fetchStoreProducts() {
+        const token = getCookie('token')
         try {
-            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/items`)
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/product/items`,{
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            })
             setStoreProducts(res.data.data)
             setFilterItem(res.data.data)
         } catch (err) {
@@ -209,6 +226,7 @@ const Product = () =>{
     return(
         <>
         <div>   
+                <ToastContainer />
             <TopFilter category={category} setCategory={setCategory} categories={categories}/>
             <ProductBody category={category} miniCate={miniCate} setMiniCate={setMiniCate}
                     filteredItem={filteredItem} filteredSubCategory={filteredSubCategory} setFilterSubCategory={setFilterSubCategory} />

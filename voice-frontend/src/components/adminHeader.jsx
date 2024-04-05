@@ -3,6 +3,7 @@ import cartImage from '../assets/png/add-to-basket.png';
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getCookie } from "../utils/service";
 const AdminHeader = () => {
     const cartStore = useSelector((store) => store.cartStore)
     const { cartItems } = cartStore;
@@ -11,12 +12,17 @@ const AdminHeader = () => {
     useEffect(() => {
         setNoOfItems(cartItems.length)
     }, [cartItems])
-
+    const token = getCookie('token')
 
     async function handleLogout (){
         try {
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/admin/logout`, {
                 withCredentials: true,
+                headers: {
+                    common: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             })
             navigate('/admin/login')
         } catch (err) {

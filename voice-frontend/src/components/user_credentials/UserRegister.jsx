@@ -3,7 +3,7 @@ import './userlogin.css'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 import goodImageno from '../../assets/png/login-bright-nobg.png'
 import dullImageno from '../../assets/png/login-dull-nodb.png'
 const UserRegister = () => {
@@ -28,7 +28,7 @@ const UserRegister = () => {
             toast.success('Successfully registered')
             navigate('/login')
         }catch(err){
-            console.log(err)
+            toast.error(err.response.data.message)
             setLoading(0)
         }
     }
@@ -41,6 +41,7 @@ const UserRegister = () => {
     return (
         <>
             <div className="h-[100vh]">
+                <ToastContainer />
                 <div className="grid grid-cols-2 h-full">
                     <div className="relative flex items-center z-30" >
                         <div className="w-[33rem] h-[33rem] bg-[#FC8A06] opacity-70 absolute transform rotate-12 z-10"></div>
