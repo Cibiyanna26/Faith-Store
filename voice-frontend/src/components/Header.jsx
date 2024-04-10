@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "../utils/service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const Header = () =>{
     const cartStore = useSelector((store)=>store.cartStore)
     const {cartItems} = cartStore;
@@ -23,14 +27,16 @@ const Header = () =>{
                     },
                 }
             })
+            toast.success('Logout Success')
             navigate('/login')
         } catch (err) {
-            alert('error occured in logout')
+            toast.error('Logout Failed')
         }
     }
     return(
         <>
             <section className="header">
+                <ToastContainer />
                 <nav className="flex flex-row justify-between p-4 bg-[#FC8A06] text-white">
                     <div className="flex flex-row gap-4 items-center text-xl font-bold">
                         <svg width="40" height="40" viewBox="0 0 256 264" fill="none" xmlns="http://www.w3.org/2000/svg">

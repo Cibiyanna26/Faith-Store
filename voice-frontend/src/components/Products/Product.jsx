@@ -4,6 +4,9 @@ import {useSelector,useDispatch} from 'react-redux'
 import { addCardItems } from "../../redux/cartStore";
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from "../../utils/service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const TopFilter  =  (props) =>{
     const {category,setCategory,categories} = props;
     return(
@@ -58,6 +61,7 @@ export const ProductCard = (props) =>{
         }
     }
     function addToCard(){
+        toast.success('Item Added to Cart')
         dispatch(addCardItems(data))
     }
     return(
@@ -222,6 +226,7 @@ const Product = () =>{
     return(
         <>
         <div>   
+                <ToastContainer />
             <TopFilter category={category} setCategory={setCategory} categories={categories}/>
             <ProductBody category={category} miniCate={miniCate} setMiniCate={setMiniCate}
                     filteredItem={filteredItem} filteredSubCategory={filteredSubCategory} setFilterSubCategory={setFilterSubCategory} />

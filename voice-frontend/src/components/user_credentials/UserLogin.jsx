@@ -6,11 +6,10 @@ import dullImageno from '../../assets/png/login-dull-nodb.png'
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from 'react'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import { removeAllCartItems } from '../../redux/cartStore';
 import {setCookie} from '../../utils/service.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserLogin = () => {
 
@@ -33,11 +32,12 @@ const UserLogin = () => {
                 }
             )
             setLoading(0)
+            toast.success("Successfully Logged In")
             setCookie('token',res.data.accessToken,160)
             dispatch(removeAllCartItems())
             navigate('/home')
         } catch (err) {
-            console.log(err)
+            toast.error(err.response.data.message)
             setLoading(0)
         }
     }
@@ -49,17 +49,7 @@ const UserLogin = () => {
     return (
         <>
             <div className="h-[100vh] bg-white">
-                <ToastContainer
-                    position="top-right"
-                    autoClose={2000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
+                <ToastContainer />
                 
                 <div className="grid grid-cols-2 h-full">
                     
